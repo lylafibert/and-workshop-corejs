@@ -75,6 +75,31 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">const</span> assert = <span class="hljs-function"><span class="hljs-params">input</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">toBeTruthy</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> !!input;
+    },
+
+    <span class="hljs-attr">toBe</span>: <span class="hljs-function"><span class="hljs-params">inputTwo</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> input == inputTwo;
+    },
+
+    <span class="hljs-attr">toEqual</span>: <span class="hljs-function"><span class="hljs-params">inputThree</span> =&gt;</span> {
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(input) === <span class="hljs-built_in">JSON</span>.stringify(inputThree);
+    },
+
+    <span class="hljs-attr">toThrow</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-keyword">try</span> {
+        input();
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      } <span class="hljs-keyword">catch</span> (e) {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      }
+    }
+  };
+};
+
 describe(<span class="hljs-string">'.toBeTruthy'</span>, () =&gt; {
   test(<span class="hljs-string">'Will show true as equal to true'</span>, () =&gt; {
     expect(assert(<span class="hljs-literal">true</span>).toBeTruthy()).toEqual(<span class="hljs-literal">true</span>);</pre></div></div>
@@ -133,7 +158,7 @@ describe(<span class="hljs-string">'.toBeTruthy'</span>, () =&gt; {
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>An empty array is truthy</p>
+              <p>// An empty array is truthy</p>
 
             </div>
             

@@ -10,6 +10,31 @@
 // ## Implement .toThrow
 // https://jestjs.io/docs/en/expect#tothrowerror
 
+const assert = input => {
+  return {
+    toBeTruthy: () => {
+      return !!input;
+    },
+
+    toBe: inputTwo => {
+      return input == inputTwo;
+    },
+
+    toEqual: inputThree => {
+      return JSON.stringify(input) === JSON.stringify(inputThree);
+    },
+
+    toThrow: () => {
+      try {
+        input();
+        return false;
+      } catch (e) {
+        return true;
+      }
+    }
+  };
+};
+
 describe('.toBeTruthy', () => {
   test('Will show true as equal to true', () => {
     expect(assert(true).toBeTruthy()).toEqual(true);
@@ -23,7 +48,7 @@ describe('.toBeTruthy', () => {
     // An empty object is truthy
     expect(assert({}).toBeTruthy()).toEqual(true);
 
-    // An empty array is truthy
+    // // An empty array is truthy
     expect(assert([]).toBeTruthy()).toEqual(true);
   });
 });
