@@ -40,6 +40,38 @@ const _ = {
       acc = 0;
     });
     return result;
+  },
+
+  // Wrapper function
+  memoize: func => {
+    // Your closure
+    const cache = {};
+
+    // Return inner function
+    return (...args) => {
+      const key = JSON.stringify();
+
+      if (cache[key]) {
+        return cache[key];
+      } else {
+        cache[key] = func(...args);
+        return cache[key];
+      }
+    };
+  },
+
+  defaults: (object, ...args) => {
+    const reduced = args.reduce((agg, currentItem) => {
+      return {
+        ...agg,
+        ...currentItem
+      };
+    }, {});
+    const newObj = {
+      ...reduced,
+      ...object
+    };
+    return newObj;
   }
 };
 
@@ -136,6 +168,10 @@ describe('_.defaults', () => {
   test('Gives precedence to the original object, not default', () => {
     const result = _.defaults({ a: 1 }, { a: 2 });
     expect(result).toEqual({ a: 1 });
+  });
+  test('works with multiple arguments', () => {
+    const result = _.defaults({ a: 1 }, { a: 2 }, { b: 4 });
+    expect(result).toEqual({ a: 1, b: 4 });
   });
 });
 
